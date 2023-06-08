@@ -8,6 +8,14 @@ class GroupCreateRequestSchema(BaseModel):
 class GroupCreateResponseSchema(BaseModel):
     id: int
 
+class GroupDeleteRequestSchema(BaseModel):
+    name: str
+    number: str
+
+class GroupDeleteResponseSchema(BaseModel):
+    ...
+
+
 class GroupSchema(BaseModel):
     id: int
     name: str

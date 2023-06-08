@@ -3,7 +3,7 @@ from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends
 
-from app.api.v1.schemas.group import GroupCreateResponseSchema, GroupCreateRequestSchema, GroupSchema
+from app.api.v1.schemas.group import GroupCreateResponseSchema, GroupCreateRequestSchema, GroupDeleteRequestSchema, GroupDeleteResponseSchema, GroupSchema
 from app.core.dependencies.persistance import group_persistence_dependency
 from app.domain.group.group import Group
 from app.persistence.common import GroupPersistence
@@ -11,12 +11,20 @@ from app.persistence.common import GroupPersistence
 router = APIRouter()
 
 
-@router.post("/", summary="Create group", description="Create group for students",
+@router.post("/create", summary="Create group", description="Create group for students",
              response_model=GroupCreateResponseSchema)
 async def create_group(create_request: GroupCreateRequestSchema,
                        group_persistence :GroupPersistence = Depends(group_persistence_dependency)) -> GroupCreateRequestSchema:
     group = group_persistence.save(name=create_request.name, number=create_request.number)
     return GroupCreateResponseSchema(id=group.id)
+
+
+@router.delete("/delete", summary="Delete group", description="Delete group for students",
+             response_model=GroupDeleteResponseSchema)
+async def delete_group(delete_request: GroupDeleteRequestSchema,
+                       group_persistence :GroupPersistence = Depends(group_persistence_dependency)) -> GroupDeleteRequestSchema:
+    group_persistence.delete(name=delete_request.name, number=delete_request.number)
+    return GroupDeleteResponseSchema()
 
 
 @router.get("/", summary="List of groups", description= "Get list of groups",
