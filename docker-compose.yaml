@@ -13,7 +13,7 @@ services:
       - pg-data03:/var/lib/postgres/data03
 
 volumes:
-  cahe:
+  cache:
     driver: local
   pg-data03:
     driver: local
