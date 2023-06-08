@@ -4,8 +4,8 @@ from fastapi import Depends
 from sqlmodel import Session
 
 from app.core.db_config import DB_ENGINE
-from app.persistence.common import GroupPersistence
-from app.persistence.postgress import PostgresGroupPersistence
+from app.persistence.common import GroupPersistence, StudentPersistence
+from app.persistence.postgress import PostgresGroupPersistence, PostgresStudentPersistence
 
 
 def session_dependecy() -> Generator[Session, None, None]:
@@ -14,3 +14,6 @@ def session_dependecy() -> Generator[Session, None, None]:
 
 def group_persistence_dependency(session: Session = Depends(session_dependecy)) -> GroupPersistence:
     return PostgresGroupPersistence(session=session)
+
+def student_persistence_dependency(session: Session = Depends(session_dependecy)) -> StudentPersistence:
+    return PostgresStudentPersistence(session=session)

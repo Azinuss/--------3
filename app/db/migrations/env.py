@@ -8,7 +8,8 @@ from alembic.script import ScriptDirectory
 from sqlmodel import SQLModel
 
 from app.core.db_config import DB_ENGINE, DB_URI
-from app.db.models import *
+from app.db.models.student import StudentModel
+from app.db.models.group import GroupModel
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
