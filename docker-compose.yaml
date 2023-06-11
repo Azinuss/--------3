@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres-students-api:
+    container_name: postgres-students-api
+    image: postgres:13.3
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 5434:5432
+    volumes:
+      - pg-data03:/var/lib/postgres/data03
+
+volumes:
+  cache:
+    driver: local
+  pg-data03:
+    driver: local
